@@ -672,7 +672,7 @@ def off_axis_response(detector_data):
         angle_data = molecule_data.get(molecule, {})
 
         if angle_data:
-            sorted_angles = sorted(angle_data.items(), key=lambda x: float(x[0]))
+            sorted_angles = sorted(angle_data.items(), key=lambda x: float(x[0])) # Chat gpt generated this
 
             for angle, max_values in sorted_angles:
                 max_vals = [value for value, _ in max_values]
@@ -720,7 +720,7 @@ def parse_parameters_to_dict(filename):
     try:
         with open(filename, 'r') as file:
             lines = file.readlines()
-    except FileNotFoundError:
+    except FileNotFoundError:    # Chat gpt did errors
         print(f"Error: The file {filename} was not found.")
         return parameters 
 
@@ -756,7 +756,7 @@ def parse_parameters_to_dict(filename):
                         "half_life": None  # Placeholder for half-life
                     }
                     parameters["sources"].append(source)
-                except ValueError as e:
+                except ValueError as e:    # chat gpt generated the error
                     print(f"Warning: Could not parse source line '{line}': {e}")
         
         elif current_section == "properties":
@@ -907,21 +907,9 @@ def calculate_activity_for_efficiency(parameters, element_name, time):
     return None
 
 def calculate_efficiency_data(detector_data, distance, parameters, masking_regions):
-    """
-    Calculate intrinsic and absolute efficiencies for each molecule and angle in the detector data, only in specified masking regions.
-    
-    Parameters:
-    - detector_data (dict): Dictionary containing molecule data with angles.
-    - csa (float): Cross-sectional area of the detector in square meters.
-    - distance (float): Distance from the source to the detector in meters.
-    - parameters (dict): Parsed parameters dictionary containing source info.
-    - masking_regions (dict): Dictionary specifying masking regions for each molecule.
-    
-    Returns:
-    - efficiency_data (DataFrame): DataFrame containing efficiencies for each molecule and angle.
-    """
+
     efficiency_list = []  
-    energy_cache = {}  # Dictionary to cache energy and emission fraction values
+    energy_cache = {}  # Chat gpt generated this cache idea into the code as original prompted every point
     radius = float(input('\nEnter the radius of the detector:\n'))
     
     for molecule, datasets in detector_data.items():
